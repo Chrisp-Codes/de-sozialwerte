@@ -1,0 +1,51 @@
+{
+  "$schema": "../schema/values.schema.json",
+  "year": 2026,
+  "meta": {
+    "last_updated": "2025-12-19",
+    "sources": {
+      "sachbezugswerte": "SvEV 2026, 16. ÄndVO, Zustimmung Bundesrat 19.12.2025",
+      "verpflegungspauschalen": "BMF-Schreiben vom 25.11.2025",
+      "mindestlohn": "MiLoG §1, 5. MiLoV, Kabinettsbeschluss 29.10.2025, gültig ab 01.01.2026",
+      "minijob": "MiLoG §1 i.V.m. § 8 Abs. 1 Nr. 1 SGB IV"
+    }
+  },
+  "sachbezugswerte": {
+    "fruehstueck": {
+      "taeglich": 2.37,
+      "monatlich": 71.10
+    },
+    "mittagessen": {
+      "taeglich": 4.57,
+      "monatlich": 137.10
+    },
+    "abendessen": {
+      "taeglich": 4.57,
+      "monatlich": 137.10
+    },
+    "vollverpflegung": {
+      "taeglich": 11.51,
+      "monatlich": 345.00
+    },
+    "einheit": "EUR"
+  },
+  "verpflegungspauschalen": {
+    "inland": {
+      "voller_tag": 28.00,
+      "halber_tag": 14.00,
+      "einheit": "EUR"
+    }
+  },
+  "mindestlohn": {
+    "brutto_stunde": 13.90,
+    "gueltig_ab": "2026-01-01",
+    "einheit": "EUR"
+  },
+  "minijob": {
+    "verdienstgrenze_monat": 603.00,
+    "verdienstgrenze_jahr": 7236.00,
+    "berechnungsformel": "Mindestlohn * 130 / 3, aufgerundet auf volle EUR",
+    "gueltig_ab": "2026-01-01",
+    "einheit": "EUR"
+  }
+}
