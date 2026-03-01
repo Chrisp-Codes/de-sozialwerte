@@ -1,0 +1,44 @@
+name: Validate JSON
+
+on:
+  pull_request:
+    paths:
+      - 'data/**'
+  push:
+    paths:
+      - 'data/**'
+      - 'schema/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ajv-cli
+        run: npm install -g ajv-cli ajv-formats
+
+      - name: Validate all data files against schema
+        run: |
+          for file in data/*.json; do
+            echo "Validating $file..."
+            ajv validate \
+              --spec=draft7 \
+              -c ajv-formats \
+              -s schema/values.schema.json \
+              -d "$file"
+          done
+
+      - name: Check that latest.json matches current year or is explicitly set
+        run: |
+          YEAR=$(date +%Y)
+          LATEST_YEAR=$(jq -r '.year' data/latest.json)
+          echo "Current year: $YEAR, latest.json year: $LATEST_YEAR"
+          if [ "$LATEST_YEAR" -lt "$YEAR" ]; then
+            echo "WARNING: latest.json references year $LATEST_YEAR, but current year is $YEAR. Please update latest.json."
+          fi
