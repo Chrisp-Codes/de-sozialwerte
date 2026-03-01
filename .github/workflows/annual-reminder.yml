@@ -1,0 +1,63 @@
+name: Annual Update Reminder
+
+on:
+  schedule:
+    # Runs on October 1st every year at 08:00 UTC
+    - cron: '0 8 1 10 *'
+  workflow_dispatch: # Allow manual trigger for testing
+
+jobs:
+  create-reminder-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create annual update issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const nextYear = new Date().getFullYear() + 1;
+            const title = `Jahreswerte ${nextYear} einpflegen`;
+            const body = [
+              `## Jahreswerte ${nextYear}`,
+              ``,
+              `Die neuen Werte werden typischerweise im November/Dezember veröffentlicht.`,
+              ``,
+              `### Checkliste`,
+              `- [ ] Sachbezugswerte (SvEV ${nextYear}, Bundesgesetzblatt)`,
+              `- [ ] Verpflegungspauschalen Inland (BMF-Schreiben November)`,
+              `- [ ] Mindestlohn (MiLoG §1)`,
+              `- [ ] Minijobgrenze (§ 8 Abs. 1 Nr. 1 SGB IV)`,
+              ``,
+              `### Schritte`,
+              `1. \`data/${nextYear}.json\` anlegen (Vorlage: letztes Jahr)`,
+              `2. Alle Werte aktualisieren`,
+              `3. Quellenangaben in \`meta.sources\` eintragen`,
+              `4. \`data/latest.json\` aktualisieren`,
+              `5. \`CHANGELOG.md\` ergänzen`,
+              `6. Git Tag \`v${nextYear}.0\` setzen`,
+            ].join('\n');
+
+            // Check if issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'annual-update'
+            });
+
+            const exists = issues.data.some(i => i.title === title);
+            if (exists) {
+              console.log('Reminder issue already exists, skipping.');
+              return;
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['annual-update']
+            });
+
+            console.log(`Created issue: ${title}`);
