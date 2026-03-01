@@ -1,0 +1,19 @@
+# ── OS ─────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editor ─────────────────────────
+.vscode/
+.idea/
+
+# ── Node (nur falls lokal AJV getestet wird)
+node_modules/
+npm-debug.log*
+
+# ── Python (falls jemand lokal Scripts schreibt)
+__pycache__/
+*.pyc
+
+# ── Environment ────────────────────
+.env
+.env.*
