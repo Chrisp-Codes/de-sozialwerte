@@ -1,0 +1,51 @@
+{
+  "$schema": "../schema/values.schema.json",
+  "year": 2024,
+  "meta": {
+    "last_updated": "2023-11-17",
+    "sources": {
+      "sachbezugswerte": "SvEV 2024, BGBl. I Nr. 329 vom 17.11.2023",
+      "verpflegungspauschalen": "BMF-Schreiben vom 21.11.2023",
+      "mindestlohn": "MiLoG §1, gültig ab 01.01.2024",
+      "minijob": "MiLoG §1 i.V.m. § 8 Abs. 1 Nr. 1 SGB IV"
+    }
+  },
+  "sachbezugswerte": {
+    "fruehstueck": {
+      "taeglich": 2.17,
+      "monatlich": 65.10
+    },
+    "mittagessen": {
+      "taeglich": 4.13,
+      "monatlich": 123.90
+    },
+    "abendessen": {
+      "taeglich": 4.13,
+      "monatlich": 123.90
+    },
+    "vollverpflegung": {
+      "taeglich": 10.43,
+      "monatlich": 312.90
+    },
+    "einheit": "EUR"
+  },
+  "verpflegungspauschalen": {
+    "inland": {
+      "voller_tag": 28.00,
+      "halber_tag": 14.00,
+      "einheit": "EUR"
+    }
+  },
+  "mindestlohn": {
+    "brutto_stunde": 12.41,
+    "gueltig_ab": "2024-01-01",
+    "einheit": "EUR"
+  },
+  "minijob": {
+    "verdienstgrenze_monat": 538.00,
+    "verdienstgrenze_jahr": 6456.00,
+    "berechnungsformel": "Mindestlohn * 130 / 3, aufgerundet auf volle EUR",
+    "gueltig_ab": "2024-01-01",
+    "einheit": "EUR"
+  }
+}
