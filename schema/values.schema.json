@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DE Sozialwerte",
+  "description": "Schema für deutsche Sozial- und Steuerkennzahlen (Sachbezugswerte, Verpflegungspauschalen, Mindestlohn, Minijob)",
+  "type": "object",
+  "required": ["year", "meta", "sachbezugswerte", "verpflegungspauschalen", "mindestlohn", "minijob"],
+  "properties": {
+    "year": {
+      "type": "integer",
+      "minimum": 2000,
+      "description": "Kalenderjahr, für das die Werte gelten"
+    },
+    "meta": {
+      "type": "object",
+      "required": ["last_updated", "sources"],
+      "properties": {
+        "last_updated": {
+          "type": "string",
+          "format": "date",
+          "description": "Datum der letzten Aktualisierung (YYYY-MM-DD)"
+        },
+        "sources": {
+          "type": "object",
+          "description": "Quellenangaben pro Datenfeld",
+          "properties": {
+            "sachbezugswerte": { "type": "string" },
+            "verpflegungspauschalen": { "type": "string" },
+            "mindestlohn": { "type": "string" },
+            "minijob": { "type": "string" }
+          },
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "sachbezugswerte": {
+      "type": "object",
+      "required": ["fruehstueck", "mittagessen", "abendessen", "vollverpflegung", "einheit"],
+      "properties": {
+        "fruehstueck": { "$ref": "#/definitions/tages_monatswert" },
+        "mittagessen": { "$ref": "#/definitions/tages_monatswert" },
+        "abendessen": { "$ref": "#/definitions/tages_monatswert" },
+        "vollverpflegung": { "$ref": "#/definitions/tages_monatswert" },
+        "einheit": { "type": "string", "enum": ["EUR"] }
+      }
+    },
+    "verpflegungspauschalen": {
+      "type": "object",
+      "required": ["inland"],
+      "properties": {
+        "inland": {
+          "type": "object",
+          "required": ["voller_tag", "halber_tag", "einheit"],
+          "properties": {
+            "voller_tag": { "type": "number", "minimum": 0 },
+            "halber_tag": { "type": "number", "minimum": 0 },
+            "einheit": { "type": "string", "enum": ["EUR"] }
+          }
+        }
+      }
+    },
+    "mindestlohn": {
+      "type": "object",
+      "required": ["brutto_stunde", "gueltig_ab", "einheit"],
+      "properties": {
+        "brutto_stunde": { "type": "number", "minimum": 0 },
+        "gueltig_ab": { "type": "string", "format": "date" },
+        "einheit": { "type": "string", "enum": ["EUR"] }
+      }
+    },
+    "minijob": {
+      "type": "object",
+      "required": ["verdienstgrenze_monat", "verdienstgrenze_jahr", "berechnungsformel", "gueltig_ab", "einheit"],
+      "properties": {
+        "verdienstgrenze_monat": { "type": "number", "minimum": 0 },
+        "verdienstgrenze_jahr": { "type": "number", "minimum": 0 },
+        "berechnungsformel": { "type": "string" },
+        "gueltig_ab": { "type": "string", "format": "date" },
+        "einheit": { "type": "string", "enum": ["EUR"] }
+      }
+    }
+  },
+  "definitions": {
+    "tages_monatswert": {
+      "type": "object",
+      "required": ["taeglich", "monatlich"],
+      "properties": {
+        "taeglich": { "type": "number", "minimum": 0 },
+        "monatlich": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}
