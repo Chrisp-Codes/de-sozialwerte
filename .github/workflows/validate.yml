@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'data/**'
+      - 'schema/**'
   push:
     paths:
       - 'data/**'
@@ -25,6 +26,7 @@ jobs:
 
       - name: Validate all data files against schema
         run: |
+          count=0
           for file in data/*.json; do
             echo "Validating $file..."
             ajv validate \
@@ -32,13 +34,21 @@ jobs:
               -c ajv-formats \
               -s schema/values.schema.json \
               -d "$file"
+            count=$((count+1))
           done
 
-      - name: Check that latest.json matches current year or is explicitly set
+          if [ "$count" -eq 0 ]; then
+            echo "::error::No data files found."
+            exit 1
+          fi
+
+          echo "✓ Validated $count files."
+
+      - name: Check that latest.json matches current year
         run: |
           YEAR=$(date +%Y)
           LATEST_YEAR=$(jq -r '.year' data/latest.json)
           echo "Current year: $YEAR, latest.json year: $LATEST_YEAR"
           if [ "$LATEST_YEAR" -lt "$YEAR" ]; then
-            echo "WARNING: latest.json references year $LATEST_YEAR, but current year is $YEAR. Please update latest.json."
+            echo "::warning::latest.json references year $LATEST_YEAR, but current year is $YEAR. Please update latest.json."
           fi
