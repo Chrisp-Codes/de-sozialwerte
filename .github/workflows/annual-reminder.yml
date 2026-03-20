@@ -2,8 +2,8 @@ name: Annual Update Reminder
 
 on:
   schedule:
-    # Runs on October 1st every year at 08:00 UTC
-    - cron: '0 8 1 10 *'
+    # Runs on November 30th every year at 08:00 UTC
+    - cron: '0 8 30 11 *'
   workflow_dispatch: # Allow manual trigger for testing
 
 jobs:
