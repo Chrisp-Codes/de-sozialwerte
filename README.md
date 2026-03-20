@@ -1,6 +1,6 @@
 # de-sozialwerte
 ![Format](https://img.shields.io/badge/format-JSON-blue)
-![Status](https://img.shields.io/badge/status-POC-orange)
+![Status](https://img.shields.io/badge/status-live-green)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 [![English](https://img.shields.io/badge/README-English-informational?style=flat-square)](README_en.md)
 
