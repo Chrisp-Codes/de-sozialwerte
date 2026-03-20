@@ -1,6 +1,7 @@
 # de-sozialwerte
 ![Format](https://img.shields.io/badge/format-JSON-blue)
-![Status](https://img.shields.io/badge/status-live-green)
+![Release](https://img.shields.io/github/v/release/Chrisp-Codes/de-sozialwerte)
+![Validation](https://img.shields.io/github/actions/workflow/status/Chrisp-Codes/de-sozialwerte/validate.yml?label=validation)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 [![Deutsch](https://img.shields.io/badge/README-Deutsch-informational?style=flat-square)](README.md)
 
